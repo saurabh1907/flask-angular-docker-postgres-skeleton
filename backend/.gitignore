@@ -1,0 +1,14 @@
+/Logs
+/__pycache__
+/info
+**/.cache
+*.log
+DBmasterschema.png
+*.ipynb
+temp.*
+*.pkl
+constants/
+docs
+.mypy_cache
+docsrc/Logs
+combined_doc.pdf
