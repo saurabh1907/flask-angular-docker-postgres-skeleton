@@ -17,13 +17,13 @@ export class BlogsApiService {
   }
 
   // GET list of public, future events
-  // getBlogs(): Observable<Blog[]> {
-  //   return this.http
-  //     .get<Blog[]>(`${API_URL}/blogs`)
-  //     .pipe(catchError(this.errorHandler))
-  // }
+  getBlogs(): Observable<Blog[]> {
+    return this.http
+      .get<Blog[]>(`${API_URL}/blogs`)
+      .pipe(catchError(this.errorHandler))
+  }
 
-  getBlogs() {
+  getBlogs2() {
     let blogs = new Array();
     blogs.push(new Blog('1','first blog',1));
     blogs.push(new Blog('2','second blog',2));

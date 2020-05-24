@@ -16,17 +16,17 @@ export class BlogListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.blogsListSubs = this.blogsApi
-    //   .getBlogs()
-    //   .subscribe(res => {
-    //       this.blogsList = res;
-    //     },
-    //     console.error
-    //   );
-    this.blogsList = this.blogsApi.getBlogs();
+    this.blogsListSubs = this.blogsApi
+      .getBlogs()
+      .subscribe(res => {
+          this.blogsList = res;
+        },
+        console.error
+      );
+    // this.blogsList = this.blogsApi.getBlogs();
   }
 
   ngOnDestroy() {
-    this.blogsListSubs.unsubscribe();
+    // this.blogsListSubs.unsubscribe();
   }
 }

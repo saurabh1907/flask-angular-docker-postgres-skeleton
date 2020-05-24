@@ -1,35 +1,34 @@
 import {Component} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {ExamsApiService} from "./exams-api.service";
 import {Router} from "@angular/router";
+import {BlogsApiService} from "./blogs-api.service";
+import {Blog} from "./blog.model";
 
 @Component({
-  selector: 'exam-form',
+  selector: 'add-blog',
   templateUrl: './add-blog.component.html',
   styleUrls: []
 })
-export class ExamFormComponent {
-  exam = {
-    title: '',
-    description: '',
-  };
+export class AddBlogomponent {
+  blog:Blog = new Blog()
 
-  constructor(private examsApi: ExamsApiService, private router: Router) { }
+  constructor(private blogApi: BlogsApiService, private router: Router) { }
 
   updateTitle(event: any) {
-    this.exam.title = event.target.value;
+    this.blog.title = event.target.value;
   }
 
   updateDescription(event: any) {
-    this.exam.description = event.target.value;
+    this.blog.description = event.target.value;
   }
 
-  saveExam() {
-    this.examsApi
-      .saveExam(this.exam)
-      .subscribe(
-        () => this.router.navigate(['/']),
-        error => alert(error.message)
-      );
+  saveBlog() {
+    console.log('saving');
+    console.log(this.blog.title);
+    // this.blogApi
+    //   .saveBlog(this.blog)
+    //   .subscribe(
+    //     () => this.router.navigate(['/']),
+    //     error => alert(error.message)
+    //   );
   }
 }

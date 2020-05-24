@@ -7,20 +7,22 @@ import {HttpClientModule} from '@angular/common/http';
 import {BlogComponent} from "./blogs/blog.component";
 import {BlogListComponent} from "./blogs/blog-list.component";
 import { routing, appRoutingProviders } from "./app.routes";
+import {AddBlogomponent} from "./blogs/add-blog.component";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     BlogComponent,
-    BlogListComponent
+    BlogListComponent,
+    AddBlogomponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     routing
   ],
-  providers: [BlogsApiService,appRoutingProviders],
+  providers: [BlogsApiService, appRoutingProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
