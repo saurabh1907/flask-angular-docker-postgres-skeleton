@@ -19,6 +19,7 @@ export class BlogListComponent implements OnInit, OnDestroy {
     this.blogsListSubs = this.blogsApi
       .getBlogs()
       .subscribe(res => {
+          console.log(res);
           this.blogsList = res;
         },
         console.error
