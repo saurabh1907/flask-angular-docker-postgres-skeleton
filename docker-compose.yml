@@ -1,0 +1,10 @@
+version: 2
+services:
+  nginx:
+    image: nginx
+  db:
+    image: postgres:9.4
+  backend:
+    image: tbd
+  frontend:
+    image: tbd
