@@ -1,24 +1,35 @@
+"""
+
+    Main application
+
+"""
 from flask import Flask
-from flask_restful import Resource, Api
-from app.config import Config
+from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
+# from server.settings import config
+# instantiate the db
+from setting import config
+
+db = SQLAlchemy()
 
 app = Flask(__name__)
 
-app.config.from_object(Config)
+app_settings = config["development"]
+app.config.from_object(app_settings)
 
 api = Api(app)
 
 db = SQLAlchemy(app)
+db.init_app(app)
 
 migrate = Migrate(app, db)
 
 CORS(app, origins='*')
 
-from app import routes, models
-from app import views
+from app import models
+from app.views import views, default
 
 views.register_view(app, api)
 

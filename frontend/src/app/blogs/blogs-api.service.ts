@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {API_URL} from '../env';
-import {Blog} from './blog.model';
+import {Blog} from '../models/blog';
 
 
 @Injectable()
 export class BlogsApiService {
+
+  headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) {
   }
@@ -19,7 +21,7 @@ export class BlogsApiService {
   // GET list of public, future events
   getBlogs(): Observable<Blog[]> {
     return this.http
-      .get<Blog[]>(`${API_URL}/blogs`)
+      .get<Blog[]>(`${API_URL}/blogs`, { headers: this.headers })
       .pipe(catchError(this.errorHandler))
   }
 

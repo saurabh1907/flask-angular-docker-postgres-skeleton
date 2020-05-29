@@ -1,18 +1,20 @@
+import app.views.default
 from flask_restful import Resource, reqparse
 from flask import jsonify
 import json
 from flask import request
-from app.entities.blog import Blog
+
+from app.models.blog import Blog
 
 blogs = []
-blog1 = Blog("title 1", "desc1", 1)
-blog2 = Blog("title 2", "desc2 from backend", 2)
-blogs.insert(blog1.blog_id,blog1)
-blogs.insert(blog2.blog_id,blog2)
+blog1 = Blog("title 1", "desc1")
+blog2 = Blog("title 2", "desc2 from backend")
+blogs.insert(1,blog1)
+blogs.insert(2,blog2)
 # blogs[2] = blog2
 
 def register_view(app, api):
-    # api.add_resource(BlogService, '/blogs/<string:book_id>')
+    # views.add_resource(BlogService, '/blogs/<string:book_id>')
     api.add_resource(BlogListApi, '/blogs')
     api.add_resource(BlogApi, '/blogs/<int:id>')
 

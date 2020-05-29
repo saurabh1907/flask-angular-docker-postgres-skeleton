@@ -3,11 +3,10 @@
 **/.idea
 /backend/docs
 /backend/.idea
-/backend/docs
 __pycache__/
 *.py[cod]
 *$py.class
-#/frontend/webapp/*.log
+#/frontend/frontend/*.log
 /env.sh
 *.log
 Scratch*.bat
@@ -16,13 +15,14 @@ env.txt
 /aws-config
 /temp
 database/rds_logs/
-.DS_Store
 screenshot*
 page-source*
-backend/.DS_Store
 \.vscode/
 extend-env.sh
-windows-vm.config.sh
 nginx/scripts/nohup*
 .mypy_cache
 build_logs.tar.gz
+
+# Mac custom attributes file (Desktop Service Store)
+.DS_Store
+backend/.DS_Store

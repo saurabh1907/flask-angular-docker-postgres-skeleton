@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {Blog} from "./blog.model";
+import {Blog} from "../models/blog";
 import {BlogsApiService} from "./blogs-api.service";
 
 @Component({

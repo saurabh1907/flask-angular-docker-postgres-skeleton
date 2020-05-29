@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {BlogsApiService} from "./blogs-api.service";
-import {Blog} from "./blog.model";
+import {Blog} from "../models/blog";
 
 @Component({
   selector: 'add-blog',

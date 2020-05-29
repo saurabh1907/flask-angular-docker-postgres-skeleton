@@ -1,6 +1,14 @@
-from flask import render_template, flash, redirect
+from flask import render_template, redirect, jsonify, flash
 from app import app
 from app.forms import LoginForm
+
+@app.route('/api')
+def hello():
+    return "Hello from Flask using Python"
+
+@app.route("/api/health")
+def health():
+    return jsonify({"status": 200, "msg":"Flask backend is running!"})
 
 @app.route('/')
 @app.route('/index')
