@@ -1,0 +1,19 @@
+<h1 style="text-align: center; margin-bottom: 12px; color: lightslategray;">Recent Posts</h1>
+<app-loading *ngIf="loading"></app-loading>
+<div class="row" *ngIf="!loading">
+  <div class="col-lg-8 col-md-10 mx-auto">
+    <div *ngFor="let blog of blogs">
+      <app-preview-post [post]="blog"></app-preview-post>
+      <hr>
+    </div>
+
+    <div class="clearfix">
+      <a class="btn btn-secondary float-left pointer" routerLink="/author-post">
+        Add Blog
+        <i class="fa fa-plus" aria-hidden="true"></i></a>
+      <a class="btn btn-secondary float-right pointer" routerLink="/posts">
+        All Blogs &rarr;
+      </a>
+    </div>
+  </div>
+</div>

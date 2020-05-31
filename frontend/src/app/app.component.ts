@@ -9,7 +9,7 @@ import {Blog} from './models/blog';
   styleUrls: []
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'app';
+  title = 'ng-blog';
 
   constructor() {
   }

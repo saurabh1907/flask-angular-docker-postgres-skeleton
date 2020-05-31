@@ -1,10 +1,11 @@
 export class Blog {
-  constructor(
-    public title?: string,
-    public description?: string,
-    public id?: number,
-    public updatedAt?: Date,
-    public createdAt?: Date,
-    public lastUpdatedBy?: string,
-  ) { }
+    public title?: string;
+    public description?: string;
+    public id?: number;
+    public createdAt?: Date;
+
+    // convert json values into object
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
+    }
 }

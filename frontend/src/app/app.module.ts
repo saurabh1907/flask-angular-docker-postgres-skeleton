@@ -6,7 +6,7 @@ import {BlogsApiService} from './blogs/blogs-api.service';
 import {HttpClientModule} from '@angular/common/http';
 import {BlogComponent} from "./blogs/blog.component";
 import {BlogListComponent} from "./blogs/blog-list.component";
-import { routing, appRoutingProviders } from "./app.routes";
+import { routing, appRoutingProviders } from "./app-routing.module";
 import {AddBlogomponent} from "./blogs/add-blog.component";
 
 
