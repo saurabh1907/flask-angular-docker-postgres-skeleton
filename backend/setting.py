@@ -6,9 +6,8 @@ import os
 
 class Config(object):
     """ Common config options """
-    APPNAME = 'Angular_Flask_Docker_Skeleton'
-    SUPPORT_EMAIL = 'mr.san.kumar@gmail.com'
-    VERSION = '2.0.1'
+    APPNAME = 'Angular_Flask_Docker_Demo'
+    VERSION = '1.0'
     APPID = 'fl_angular_docker'
     SECRET_KEY = os.urandom(24)
     TESTING = False
@@ -21,6 +20,7 @@ class Config(object):
     DB_SERVICE = os.getenv('DB_SERVICE')
     DB_PORT = os.getenv('DB_PORT')
     SQLALCHEMY_DATABASE_URI = 'postgresql://{0}:{1}@{2}:{3}/{4}'.format(DB_USER, DB_PASS, DB_SERVICE, DB_PORT, DB_NAME)
+    print(SQLALCHEMY_DATABASE_URI)
 
 
 class DevelopmentConfig(Config):

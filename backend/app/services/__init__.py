@@ -8,8 +8,6 @@ from flask import jsonify
 
 
 class BaseService(object):
-
-    __metaclass__ = ABCMeta
     __model__ = None
 
 

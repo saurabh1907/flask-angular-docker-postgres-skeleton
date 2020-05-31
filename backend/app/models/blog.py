@@ -6,6 +6,7 @@ import json
 
 class Blog(BaseModel, db.Model, dict):
     """Model for blogs table"""
+    __tablename__ = "blogs"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(500), nullable=False)
     description = db.Column(db.String(1000), nullable=False)
@@ -21,3 +22,7 @@ class Blog(BaseModel, db.Model, dict):
 
     def toJson(self):
         return json.dumps(self, default=lambda o: o.__dict__)
+
+
+db.create_all()
+db.session.commit()

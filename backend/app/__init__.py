@@ -1,7 +1,5 @@
 """
-
     Main application
-
 """
 from flask import Flask
 from flask_restful import Api
@@ -12,8 +10,6 @@ from flask_cors import CORS
 # instantiate the db
 from setting import config
 
-db = SQLAlchemy()
-
 app = Flask(__name__)
 
 app_settings = config["development"]
@@ -22,7 +18,7 @@ app.config.from_object(app_settings)
 api = Api(app)
 
 db = SQLAlchemy(app)
-db.init_app(app)
+
 
 migrate = Migrate(app, db)
 
