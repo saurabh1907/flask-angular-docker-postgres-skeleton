@@ -31,11 +31,11 @@ export class BlogService {
     return this.apiService.post(environment.api.entries, blog);
   }
 
-  public updateBlog(id: string, blog: Blog): Observable<any> {
+  public editBlog(id: number, blog: Blog): Observable<any> {
     return this.apiService.put(environment.api.entries + '/' + id, blog);
   }
 
-  public deletePost(id) {
+  public deleteBlog(id) {
     return this.apiService.delete(environment.api.entries + '/' + id);
   }
 }

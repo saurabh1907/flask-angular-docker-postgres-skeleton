@@ -24,4 +24,8 @@ export class HomeComponent implements OnInit {
       this.loading = false;
     });
   }
+
+  private refresh(event): void {
+    this.blogs = this.blogs.filter(item => item != event);
+  }
 }

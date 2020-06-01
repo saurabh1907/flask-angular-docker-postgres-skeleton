@@ -1,0 +1,35 @@
+<div class="row" *ngIf="loading">
+  <div class="col-12 text-center">
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div class="row" *ngIf="!loading">
+    <div *ngIf="!editable" class="col-lg-8 col-md-10 mx-auto">
+      <h1 [textContent]="blog.title"></h1>
+
+      <h3 class="post-content" [textContent]="blog.description"></h3>
+
+      <p style="color: grey; text-align: center;" class="post-meta"><i>Posted On :  </i>
+        <i><a href="#" style="color: grey; text-decoration: none;" [textContent]="blog.created_date"></a></i>
+      </p>
+    </div>
+
+    <!-- Update Button -->
+    <div *ngIf="!editable" class="clearfix text-center float-left mx-auto">
+      <a (click)="editableToggle();" class="btn btn-light pointer">
+        Edit
+        <i class="" aria-hidden="true"></i></a>
+    </div>
+
+    <!-- Delete Button -->
+    <div *ngIf="!editable" class="clearfix text-center float-right mx-auto">
+      <a (click)="deleteBlog();" class="btn btn-light pointer">
+        Delete
+        <i class="" aria-hidden="true"></i></a>
+    </div>
+    <div *ngIf="editable" class="col-lg-8 col-md-10 mx-auto">
+    <app-add-blog [blog]="blog" [edit]="true"></app-add-blog>
+    </div>
+</div>
+

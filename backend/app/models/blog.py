@@ -9,7 +9,7 @@ class Blog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(500), nullable=False)
-    description = db.Column(db.String(1000), nullable=False)
+    description = db.Column(db.Text, nullable=False)
     created_date = db.Column(db.DateTime, nullable=False,)
     # password_hash = db.Column(db.String(128)
 
@@ -24,12 +24,12 @@ class Blog(db.Model):
                 for c in inspect(self).mapper.column_attrs}
 
     #another alternate to using as_dict
-    @property
-    def serialize(self):
-        return {
-            'title': self.title,
-            'description': self.description,
-            'created_date': self.reated_date,
-            'id': self.id,
-        }
+    # @property
+    # def serialize(self):
+    #     return {
+    #         'title': self.title,
+    #         'description': self.description,
+    #         'created_date': self.reated_date,
+    #         'id': self.id,
+    #     }
 

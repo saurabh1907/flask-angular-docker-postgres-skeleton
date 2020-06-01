@@ -1,0 +1,32 @@
+<!-- Main Content -->
+<div class="row">
+  <div class="col-lg-8 col-md-10 mx-auto">
+    <form novalidate>
+      <div class="control-group">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" [(ngModel)]="blog.title" [disabled]="processing" name="title" class="form-control"
+            placeholder="Title">
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="form-group">
+          <label>Description</label>
+          <textarea rows="5" [(ngModel)]="blog.description" [disabled]="processing" name="content" class="form-control"
+            placeholder="Content"></textarea>
+        </div>
+      </div>
+      <br>
+      <app-loading *ngIf="processing && (!success && !failure)"></app-loading>
+      <div class="alert alert-success pointer" *ngIf="success" routerLink="/home" role="alert">
+        You're entry was successfully posted! Click here to go Home.
+      </div>
+      <div class="alert alert-danger pointer" *ngIf="failure" routerLink="/author-post" role="alert">
+        An unexpected error occured while submitting your entry. Please refresh your browser and try again.
+      </div>
+      <div class="form-group text-center mx-auto" *ngIf="!submitted">
+        <button class="btn btn-secondary" (click)="submit();">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

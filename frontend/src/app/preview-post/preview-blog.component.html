@@ -1,0 +1,19 @@
+<div class="post-preview">
+  <a (click)="navigate()" class="pointer">
+    <h2 class="post-title" [textContent]="blog.title">
+    </h2>
+    <h3 class="post-subtitle">{{ blog.description.length > 48 ? blog.description.substring(0, 50)+"..." : blog.description }}
+    </h3>
+  </a>
+      <!-- Delete Button -->
+  <div class="clearfix text-center float-right mx-auto">
+    <a (click)="deleteBlog();" class="btn btn-light pointer">
+      Delete
+      <i class="" aria-hidden="true"></i></a>
+  </div>
+  <p class=" post-meta">Posted at :
+    <a href="#" [textContent]="blog.created_date"></a>
+  </p>
+
+
+</div>

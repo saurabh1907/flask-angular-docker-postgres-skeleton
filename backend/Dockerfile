@@ -15,7 +15,7 @@ WORKDIR /backend
 #RUN chown -R ${username} /app
 #USER ${username}
 
-# copy everything from this directory to server/flask docker container
+# copy everything from this directory to server docker container
 COPY . /backend
 
 ## Uncommend to run a script

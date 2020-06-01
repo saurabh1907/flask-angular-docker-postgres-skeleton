@@ -1,59 +1,43 @@
 # Run docker-compose build
 # Run docker-compose up
-
 version: '2'
 
 services:
-#  nginx:
-#    container_name: nginx_container
-#    restart: always
-#    image: nginx
-#    build:
-#      context: .
-#      dockerfile: nginx/Dockerfile
-#    volumes:
-#     - ./frontend/dist:/usr/share/nginx/html
-#    ports:
-#      - "80:80"
-#      - "443:443"
-#    depends_on:
-#      - backend
+  backend:
+    container_name: backend_container
+    restart: always
+    build: ./backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+    volumes:
+    - ./backend:/backend
+    env_file:
+     - .env_docker
+    command: pipenv run flask run --host=0.0.0.0
 
-#  backend:
-#    container_name: backend_container
-#    restart: always
-##    image: flask
-#    build: ./backend
-#    ports:
-#      - "5000:5000"
-##    depends_on:
-##      - postgres
-#    volumes:
-#    - ./backend:/backend
-#    env_file:
-#     - .env
-#    command: pipenv run flask run --host=0.0.0.0
-
-#  frontend:
-#    build: ./frontend
-#    ports:
-#      - "4200:4200"
-#      - '9876:9876'
-#    volumes:
-#      - ./frontend:/usr/src/app/frontend
-#    command: ng serve --host 0.0.0.0 --port 4200 --poll=2000
+  frontend:
+    container_name: frontend_container
+    build: ./frontend
+    ports:
+      - "4200:4200"
+      - '9876:9876'
+    volumes:
+      - ./frontend:/frontend
+    command: ng serve --host 0.0.0.0 --port 4200 --poll=2000
 
   postgres:
    container_name: postgresql_container
-#   environment:
-#     POSTGRES_DATABASE: 'blogs'
-#     POSTGRES_USER: 'user'
-#     POSTGRES_PASSWORD: 'password'
    restart: always
    build: ./postgresql
    volumes:
      - /var/lib/postgresql
    ports:
      - "5432:5432"
+#   environment:
+#     POSTGRES_DATABASE: 'blogs'
+#     POSTGRES_USER: 'user'
+#     POSTGRES_PASSWORD: 'password'
    env_file:
-     - .env
+     - .env_docker
