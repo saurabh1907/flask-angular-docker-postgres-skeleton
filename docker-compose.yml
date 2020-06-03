@@ -1,5 +1,6 @@
 # Run docker-compose build
 # Run docker-compose up
+# Comments represent alternate or optional configurations
 version: '2'
 
 services:
@@ -15,6 +16,11 @@ services:
     - ./backend:/backend
     env_file:
      - .env_docker
+    healthcheck:
+      test: "${DOCKER_HEALTHCHECK_TEST:-curl localhost:8000/healthy}"
+      interval: "60s"
+      timeout: "3s"
+      retries: 3
     command: pipenv run flask run --host=0.0.0.0
 
   frontend:
@@ -58,3 +64,23 @@ services:
       - "443:443"
     depends_on:
       - backend
+
+  redis:
+    container_name: redis_container
+    restart: always
+    image: redis
+#    volumes:
+#      - [path to custom redis.conf file]:/usr/local/etc/redis/redis.conf
+    ports:
+    - 6379:6379
+
+  worker:
+    command: celery worker -B -l info -A snakeeyes.blueprints.contact.tasks
+    depends_on:
+      - "redis"
+    env_file:
+      - ".env"
+    restart: always
+    volumes:
+      - "${DOCKER_WEB_VOLUME:-./public:/app/public}"
+

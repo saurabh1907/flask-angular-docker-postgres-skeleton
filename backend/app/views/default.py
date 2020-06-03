@@ -1,5 +1,8 @@
 from flask import render_template, jsonify
 from app import app
+from app.views.views import blog_service
+# from app.services import blog_service
+
 
 @app.route('/api')
 def hello():

@@ -10,8 +10,8 @@ from setting import config
 
 app = Flask(__name__)
 
-app_settings = config["development"]
-app.config.from_object(app_settings)
+app_setting = config["development"]
+app.config.from_object(app_setting)
 
 api = Api(app)
 
