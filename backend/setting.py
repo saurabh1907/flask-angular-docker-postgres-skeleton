@@ -19,6 +19,8 @@ class Config(object):
     DB_PASS = os.getenv('POSTGRES_PASSWORD')
     DB_SERVICE = os.getenv('DB_SERVICE')
     DB_PORT = os.getenv('DB_PORT')
+    BROKER_URL = os.getenv('BROKER_URL')
+    CELERY_BACKEND = os.getenv('CELERY_BACKEND')
     SQLALCHEMY_DATABASE_URI = 'postgresql://{0}:{1}@{2}:{3}/{4}'.format(DB_USER, DB_PASS, DB_SERVICE, DB_PORT, DB_NAME)
     print(SQLALCHEMY_DATABASE_URI)
 

@@ -2,10 +2,8 @@ from flask_restful import Resource, reqparse, abort
 from flask import request
 from app.models.blog import Blog
 from app.services.blog_service import BlogService
-from app.celery import add_dummy_blogs
 
 blog_service = BlogService()
-
 
 def register_view(api):
     api.add_resource(BlogListApi, '/api/blogs')
@@ -31,7 +29,6 @@ class BlogListApi(Resource):
 
 
 class BlogApi(Resource):
-
     def get(self, id):
         return blog_service.get(id)
 
@@ -56,6 +53,25 @@ class BlogApi(Resource):
 
 
 class BlogsDownload(Resource):
+    from app.celery import add_dummy_blogs
     def get(self):
-        add_dummy_blogs.appply_async(args=[10, 20], countdown=20)
+        # self.add_dummy_blogs.apply_async(args=[5, 10], countdown=10)
+        self.add_dummy_blogs.delay(5,10)
         return success_response()
+
+# Routes approach to create api
+# @app.route('/')
+# @app.route('/index')
+# def index():
+#     user = {'username': 'Saurabh'}
+#     posts = [
+#         {
+#             'author': {'username': 'John'},
+#             'body': 'Beautiful day in Portland!'
+#         },
+#         {
+#             'author': {'username': 'Susan'},
+#             'body': 'The Avengers movie was so cool!'
+#         }
+#     ]
+#     return render_template('index.html', title='Home', user=user, posts=posts)

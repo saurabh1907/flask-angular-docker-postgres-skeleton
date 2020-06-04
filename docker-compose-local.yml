@@ -1,0 +1,40 @@
+# Run docker-compose -f docker-compose-local.py build
+# Run docker-compose -f docker-compose-local.py up
+# Comments represent alternate or optional configurations
+version: '2'
+
+services:
+  postgres:
+    container_name: postgresql_container
+    restart: always
+    build: ./postgresql
+    volumes:
+      - /var/lib/postgresql
+    ports:
+      - "5432:5432"
+    #   environment:
+    #     POSTGRES_DATABASE: 'blogs'
+    #     POSTGRES_USER: 'user'
+    #     POSTGRES_PASSWORD: 'password'
+    env_file:
+      - .env_docker
+
+  redis:
+    container_name: redis_container
+    restart: always
+    image: redis
+    #    volumes:
+    #      - [path to custom redis.conf file]:/usr/local/etc/redis/redis.conf
+    ports:
+      - 6379:6379
+
+#  worker:
+#    command: celery worker -A app.celery.celery --loglevel=info
+#    depends_on:
+#      - "redis"
+#    env_file:
+#      - .env_docker
+#    restart: always
+##    volumes:
+##      - "${DOCKER_WEB_VOLUME:-./public:/app/public}"
+

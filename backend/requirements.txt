@@ -9,6 +9,7 @@ python-dotenv==0.13.0
 psycopg2-binary==2.8.4
 sqlalchemy==1.3.10
 celery==4.3.0
+redis==3.3.11
 #coverage==4.5.1
 #flask-sqlacodegen==1.1.6.1
 #alembic==1.3.2

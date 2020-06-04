@@ -1,35 +1,37 @@
-"""
-    Main application
-"""
 from flask import Flask
-from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
+from flask_restful import Api
 from setting import config
 
-app = Flask(__name__)
-
 app_setting = config["development"]
-app.config.from_object(app_setting)
 
-api = Api(app)
+db = SQLAlchemy()
+migrate = Migrate()
+api = Api()
 
-CORS(app, origins='*')
 
-from app import models
-db = SQLAlchemy(app)
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(app_setting)
 
-# Init tables. Need the next three lines one time only.
-from app.models.blog import Blog
-db.create_all()
-db.session.commit()
+    CORS(app, origins='*')
 
-migrate = Migrate(app, db)
+    db.init_app(app)
+    migrate.init_app(app, db)
+    api.init_app(app)
 
-from app.views import views, default
+    # from app.models.blog import Blog
+    # # Init tables. Need the next two lines one time only. Run app after uncommenting once. Or use flask db init
+    # # db.create_all()
+    # # db.session.commit()
+    with app.app_context():
+        from app.views import views
+        views.register_view(api)
 
-views.register_view(api)
+        # Register the blueprints here
 
+    return app
 
 

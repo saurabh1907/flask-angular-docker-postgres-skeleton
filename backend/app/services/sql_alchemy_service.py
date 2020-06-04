@@ -27,7 +27,8 @@ class SQLAlchemyService:
         # self._isinstance(obj)
         self.__db__.session.add(obj)
         self.__db__.session.commit()
-        return jsonify(obj.as_dict())
+        # return jsonify(obj.as_dict())
+        return 1
 
     def delete(self, id):
         to_delete = self.__model__.query.get(id)
