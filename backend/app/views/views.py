@@ -8,7 +8,7 @@ blog_service = BlogService()
 def register_view(api):
     api.add_resource(BlogListApi, '/api/blogs')
     api.add_resource(BlogApi, '/api/blogs/<int:id>')
-    api.add_resource(BlogsDownload, '/api/blogs/download')
+    api.add_resource(DummyBlogs, '/api/blogs/dummy')
 
 
 def success_response():
@@ -52,12 +52,11 @@ class BlogApi(Resource):
     # self.reqparse.add_argument('blog_id', type = int, location = 'json')
 
 
-class BlogsDownload(Resource):
-
-    def get(self):
-        # self.add_dummy_blogs.apply_async(args=[5, 10], countdown=10)
+class DummyBlogs(Resource):
+    def post(self):
+        num = int(request.data.decode("utf-8"))
         from app.celery.celery_worker import add_dummy_blogs
-        add_dummy_blogs.delay(5, 10)
+        add_dummy_blogs.apply_async(args=[num, 10], countdown=10)
         return success_response()
 
 # Routes approach to create api

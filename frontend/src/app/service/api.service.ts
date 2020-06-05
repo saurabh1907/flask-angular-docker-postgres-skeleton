@@ -14,6 +14,7 @@ export class ApiService {
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   public get(requestUri: string): Observable<any> {
+    console.log(API_BASE_URL + requestUri);
     return this.http
       .get(API_BASE_URL + requestUri, {headers: this.headers})
       .pipe(catchError(this.handleError));

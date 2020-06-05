@@ -77,7 +77,7 @@ services:
   worker:
     build:
       context: "."
-    command: celery worker -A app.celery.celery --loglevel=info
+    command: celery -A app.celery.celery_worker.celery worker --loglevel=info
     depends_on:
       - "redis"
     env_file:

@@ -4,6 +4,7 @@ Configure Settings for application for specific environment
 
 import os
 
+
 class Config(object):
     """ Common config options """
     APPNAME = 'Angular_Flask_Docker_Demo'
@@ -22,7 +23,6 @@ class Config(object):
     BROKER_URL = os.getenv('BROKER_URL')
     CELERY_BACKEND = os.getenv('CELERY_BACKEND')
     SQLALCHEMY_DATABASE_URI = 'postgresql://{0}:{1}@{2}:{3}/{4}'.format(DB_USER, DB_PASS, DB_SERVICE, DB_PORT, DB_NAME)
-    print(SQLALCHEMY_DATABASE_URI)
 
 
 class DevelopmentConfig(Config):
@@ -36,7 +36,25 @@ class TestingConfig(Config):
     DEBUG = False
     STAGING = True
     TESTING = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_NATIVE_UNICODE = True
+    SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+    BROKER_URL = 'redis://localhost:6379/0'
+    CELERY_BACKEND = 'postgresql://postgres:postgres@localhost:5432/blogs_db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///memory'
 
+class CeleryConfig(Config):
+    """ Testing environment config options """
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_NATIVE_UNICODE = True
+    SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+    DB_NAME = 'blogs_db'
+    DB_USER = 'postgres'
+    DB_PASS = 'postgres'
+    DB_SERVICE = 'localhost'
+    DB_PORT = 5432
+    BROKER_URL = 'redis://localhost:6379/0'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://{0}:{1}@{2}:{3}/{4}'.format(DB_USER, DB_PASS, DB_SERVICE, DB_PORT, DB_NAME)
 
 class ProductionConfig(Config):
     """ Prod environment config options """
@@ -48,6 +66,7 @@ class ProductionConfig(Config):
 config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
+    'celery': CeleryConfig,
     'production': ProductionConfig,
     'default': DevelopmentConfig
 }
