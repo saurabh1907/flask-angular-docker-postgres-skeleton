@@ -1,13 +1,8 @@
 # Some tutorials call this file wsgi.py
 from flask import jsonify
 from app import create_app
-from setting import config
-from app.celery import create_celery, celery_client
-
 
 app = create_app()  # App initialization
-celery = create_celery(app)  # Celery Initialization
-celery_client = celery
 
 
 @app.route('/api')

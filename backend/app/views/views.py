@@ -53,10 +53,11 @@ class BlogApi(Resource):
 
 
 class BlogsDownload(Resource):
-    from app.celery import add_dummy_blogs
+
     def get(self):
         # self.add_dummy_blogs.apply_async(args=[5, 10], countdown=10)
-        self.add_dummy_blogs.delay(5,10)
+        from app.celery.celery_worker import add_dummy_blogs
+        add_dummy_blogs.delay(5, 10)
         return success_response()
 
 # Routes approach to create api
