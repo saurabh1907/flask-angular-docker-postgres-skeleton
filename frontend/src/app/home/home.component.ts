@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getBlogs();
-    setInterval(() => this.getBlogs(),10000); //Polls every 10 seconds
   }
 
   private getBlogs(): void {
@@ -34,6 +33,7 @@ export class HomeComponent implements OnInit {
       console.log('Dummy add request sent');
     });
       this.addDummyText = 'Request Sent';
+      setTimeout(() => this.getBlogs(),10000); //Get the blogs again after 10 seconds
     }
   }
   private refresh(event): void {
