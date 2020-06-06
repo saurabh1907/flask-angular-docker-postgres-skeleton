@@ -30,4 +30,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 5000
 
-ENTRYPOINT FLASK_APP=/backend/run.py flask run --host 0.0.0.0
+CMD FLASK_APP=/backend/run.py flask run --host 0.0.0.0

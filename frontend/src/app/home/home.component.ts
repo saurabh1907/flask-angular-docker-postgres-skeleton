@@ -31,9 +31,9 @@ export class HomeComponent implements OnInit {
       console.log("sending dummy");
       this.blogService.addDummy(2).subscribe(res => {
       console.log('Dummy add request sent');
-    });
+      });
       this.addDummyText = 'Request Sent';
-      setTimeout(() => this.getBlogs(),10000); //Get the blogs again after 10 seconds
+      setInterval(() => this.getBlogs(),10000); //Poll the blogs api every 10 seconds
     }
   }
   private refresh(event): void {

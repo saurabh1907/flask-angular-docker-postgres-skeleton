@@ -21,21 +21,24 @@ def create_app(env='development'):
 
     CORS(app, origins='*')
 
+    # DB Initialization
     db.init_app(app)
+    from app.models.blog import Blog
+    # Init tables. Need below one time only during first run app. Alternative- flask db init
+    with app.app_context():
+        db.create_all()
+        db.session.commit()
+    # End DB Initialization
+
     migrate.init_app(app, db)
     from app.celery import init_celery
     init_celery(celery, app)
 
-    # from app.models.blog import Blog
-    # # Init tables. Need the next two lines one time only. Run app after uncommenting once. Or use flask db init
-    # # db.create_all()
-    # # db.session.commit()
+    # Load views, routes, blueprints below
 
     if env != CELERY_ENV:
         from app.views import views
         views.register_view(api)
         api.init_app(app)
-
-    # Register the blueprints here
 
     return app

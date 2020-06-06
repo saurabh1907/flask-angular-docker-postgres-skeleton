@@ -1,28 +1,9 @@
 # Run docker-compose build
 # Run docker-compose up
 # Comments represent alternate or optional configurations
-version: '2'
+version: '2.1'
 
 services:
-  backend:
-    container_name: backend_container
-    restart: always
-    build: ./backend
-    ports:
-      - "5000:5000"
-    depends_on:
-      - postgres
-    volumes:
-    - ./backend:/backend
-    env_file:
-     - .env_docker
-#    healthcheck:
-#      test: "${DOCKER_HEALTHCHECK_TEST:-curl localhost:8000/healthy}"
-#      interval: "60s"
-#      timeout: "3s"
-#      retries: 3
-    command: pipenv run flask run --host=0.0.0.0
-
   frontend:
     container_name: frontend_container
     build: ./frontend
@@ -33,6 +14,35 @@ services:
       - ./frontend:/frontend
     command: ng serve --host 0.0.0.0 --disable-host-check --port 4200 --poll=2000
 
+  backend:
+    container_name: backend_container
+    restart: always
+    build: ./backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+    - ./backend:/backend
+    env_file:
+     - .env_docker
+
+  worker:
+    container_name: worker_container
+    restart: always
+    build: ./backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/backend
+    env_file:
+      - .env_docker
+    command: celery -A app.celery.celery_worker.celery worker --loglevel=info
+
   postgres:
    container_name: postgresql_container
    restart: always
@@ -41,12 +51,27 @@ services:
      - /var/lib/postgresql
    ports:
      - "5432:5432"
-#   environment:
-#     POSTGRES_DATABASE: 'blogs'
-#     POSTGRES_USER: 'user'
-#     POSTGRES_PASSWORD: 'password'
    env_file:
      - .env_docker
+   healthcheck:
+     test: ["CMD-SHELL", "pg_isready -U postgres"]
+     interval: 10s
+     timeout: 5s
+     retries: 5
+
+  redis:
+    container_name: redis_container
+    restart: always
+    image: redis
+#    volumes:
+#      - [path to custom redis.conf file]:/usr/local/etc/redis/redis.conf
+    ports:
+    - 6379:6379
+    healthcheck:
+      test: ["CMD", "redis-cli","ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   nginx:
     container_name: nginx_container
@@ -64,25 +89,8 @@ services:
       - "444:443"
     depends_on:
       - backend
+      - frontend
+    #   environment:
+    #     EXAMPLE_PROPERTY: 'value'
 
-  redis:
-    container_name: redis_container
-    restart: always
-    image: redis
-#    volumes:
-#      - [path to custom redis.conf file]:/usr/local/etc/redis/redis.conf
-    ports:
-    - 6379:6379
-
-  worker:
-    build:
-      context: "."
-    command: celery -A app.celery.celery_worker.celery worker --loglevel=info
-    depends_on:
-      - "redis"
-    env_file:
-      - .env_docker
-    restart: always
-#    volumes:
-#      - "${DOCKER_WEB_VOLUME:-./public:/app/public}"
 
