@@ -26,16 +26,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  private addDummy(): void {
-    if(this.addDummyText == 'add Dummy') {
-      console.log("sending dummy");
-      this.blogService.addDummy(2).subscribe(res => {
-      console.log('Dummy add request sent');
-      });
-      this.addDummyText = 'Request Sent';
-      setInterval(() => this.getBlogs(),10000); //Poll the blogs api every 10 seconds
-    }
-  }
   private refresh(event): void {
     this.blogs = this.blogs.filter(item => item != event);
   }

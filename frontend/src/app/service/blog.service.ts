@@ -31,10 +31,6 @@ export class BlogService {
     return this.apiService.post(environment.api.entries, blog);
   }
 
-  public addDummy(num:number): Observable<any> {
-    return this.apiService.post(environment.api.entries + '/' + 'dummy', num);
-  }
-
   public editBlog(id: number, blog: Blog): Observable<any> {
     return this.apiService.put(environment.api.entries + '/' + id, blog);
   }

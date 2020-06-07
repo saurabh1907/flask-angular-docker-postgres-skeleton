@@ -20,8 +20,6 @@ class Config(object):
     DB_PASS = os.getenv('POSTGRES_PASSWORD') or 'postgres'
     DB_SERVICE = os.getenv('DB_SERVICE') or 'localhost'
     DB_PORT = os.getenv('DB_PORT') or 5432
-    BROKER_URL = os.getenv('BROKER_URL') or 'redis://localhost:6379/0'
-    CELERY_BACKEND = os.getenv('CELERY_BACKEND') or 'postgresql://postgres:postgres@localhost:5432/blogs_db'
     SQLALCHEMY_DATABASE_URI = 'postgresql://{0}:{1}@{2}:{3}/{4}'.format(DB_USER, DB_PASS, DB_SERVICE, DB_PORT, DB_NAME)
 
 
@@ -40,16 +38,7 @@ class TestingConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_NATIVE_UNICODE = True
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
-    BROKER_URL = 'redis://localhost:6379/0'
-    CELERY_BACKEND = 'postgresql://postgres:postgres@localhost:5432/blogs_db'
     SQLALCHEMY_DATABASE_URI = 'sqlite:///memory'
-
-
-class CeleryConfig(Config):
-    """ Celery environment config options """
-    FLASK_ENV = 'development'
-    DEBUG = True
-    PROFILE = True
 
 
 class ProductionConfig(Config):
@@ -62,7 +51,6 @@ class ProductionConfig(Config):
 config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
-    'celery': CeleryConfig,
     'production': ProductionConfig,
     'default': DevelopmentConfig
 }

@@ -28,21 +28,6 @@ services:
     env_file:
      - .env_docker
 
-  worker:
-    container_name: worker_container
-    restart: always
-    build: ./backend
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-    volumes:
-      - ./backend:/backend
-    env_file:
-      - .env_docker
-    command: celery -A app.celery.celery_worker.celery worker --loglevel=info
-
   postgres:
    container_name: postgresql_container
    restart: always
@@ -59,38 +44,7 @@ services:
      timeout: 5s
      retries: 5
 
-  redis:
-    container_name: redis_container
-    restart: always
-    image: redis
-#    volumes:
-#      - [path to custom redis.conf file]:/usr/local/etc/redis/redis.conf
-    ports:
-    - 6379:6379
-    healthcheck:
-      test: ["CMD", "redis-cli","ping"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
 
-  nginx:
-    container_name: nginx_container
-    restart: always
-#    image: nginx:1.13.7
-    build:
-      context: .
-      dockerfile: nginx/Dockerfile
-#    volumes:
-#      - ./frontend/dist:/usr/share/nginx/html
-#    volumes:
-#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-    ports:
-      - "8080:80"
-      - "444:443"
-    depends_on:
-      - backend
-      - frontend
-    #   environment:
-    #     EXAMPLE_PROPERTY: 'value'
+
 
 

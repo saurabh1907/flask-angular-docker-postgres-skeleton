@@ -7,11 +7,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 #/frontend/frontend/*.log
-/env.sh
 *.log
 Scratch*.bat
 Notebooks
-env.txt
 /aws-config
 /temp
 database/rds_logs/
