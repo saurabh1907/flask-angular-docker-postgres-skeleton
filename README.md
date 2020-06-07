@@ -48,5 +48,5 @@ There are two branches- master and frontend_backend_db_docker. use -> git checko
 - docker-compose-local.yml has just postgresql and redis
 - postgres has health check that ensures backend is deployed once postgres is up
 - I have written some tests for backend using pytest and jasmine/karma for frontend
-- run tests using python tests/tests.py and ng test respectively
+- run tests using pytest tests/tests.py and ng test respectively
  
