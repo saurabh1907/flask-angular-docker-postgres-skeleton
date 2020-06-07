@@ -12,7 +12,7 @@ build-local:
 # Run
 run:
 	docker-compose up
-#run-local:
+run-local:
 	docker-compose -f docker-compose-local.yml up
 
 # Access backend

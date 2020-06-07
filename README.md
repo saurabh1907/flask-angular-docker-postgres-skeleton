@@ -8,6 +8,7 @@ It includes but is not limited to the following -
 * RedisQueue with Celery for asynchronous process 
 
 <p>All components created from Docker images that expand on the respective official images from Docker Hub. Docker-compose file binds them together </p>
+
 ## Working
 <p>The request from an external user hits the nginx web server on port 8080. Depending on the URL,the request is served using Angular code or it is sent to Flask web application. In this app, all request URL starting with /api is sent to Flask web service. The Flask docker container is also running and it exposes port 5000. These setting are defined in nginx.conf file. In this way, nginx is aware of both Frontend and Backend services. The Flask container talks to the PostgreSQL database on port 5432 for any request that require database operations. A separate celery worker is created with takes care of processing any long process asynchronously. Its activated on clicking 'Add dummy' button on frontend</p>
 

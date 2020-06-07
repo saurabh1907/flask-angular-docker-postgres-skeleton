@@ -13,7 +13,6 @@ Notebooks
 /aws-config
 /temp
 database/rds_logs/
-screenshot*
 page-source*
 \.vscode/
 extend-env.sh
