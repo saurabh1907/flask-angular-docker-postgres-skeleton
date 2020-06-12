@@ -1,9 +1,10 @@
-from flask_restful import Resource, reqparse, abort
+from flask_restful import Resource, abort
 from flask import request
 from app.models.blog import Blog
 from app.services.blog_service import BlogService
 
 blog_service = BlogService()
+
 
 def register_view(api):
     api.add_resource(BlogListApi, '/api/blogs')
@@ -40,30 +41,3 @@ class BlogApi(Resource):
 
     def delete(self, id):
         return blog_service.delete(id)
-
-    # def __init__(self):
-    # validation example
-    # self.reqparse = reqparse.RequestParser()
-    # self.reqparse.add_argument('title', type = str, location = 'json', required = True,
-    #     help = 'No title provided')
-    # self.reqparse.add_argument('description', type = str, location = 'json', required = True,
-    #     help = 'No description provided')
-    # self.reqparse.add_argument('blog_id', type = int, location = 'json')
-
-
-# Routes approach to create api
-# @app.route('/')
-# @app.route('/index')
-# def index():
-#     user = {'username': 'Saurabh'}
-#     posts = [
-#         {
-#             'author': {'username': 'John'},
-#             'body': 'Beautiful day in Portland!'
-#         },
-#         {
-#             'author': {'username': 'Susan'},
-#             'body': 'The Avengers movie was so cool!'
-#         }
-#     ]
-#     return render_template('index.html', title='Home', user=user, posts=posts)

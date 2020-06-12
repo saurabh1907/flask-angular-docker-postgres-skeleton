@@ -10,7 +10,8 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(500), nullable=False)
     description = db.Column(db.Text, nullable=False)
-    created_date = db.Column(db.DateTime, nullable=False,)
+    created_date = db.Column(db.DateTime, nullable=False, )
+
     # password_hash = db.Column(db.String(128)
 
     def __init__(self, title, description):
@@ -23,13 +24,12 @@ class Blog(db.Model):
         return {c.key: getattr(self, c.key)
                 for c in inspect(self).mapper.column_attrs}
 
-    #another alternate to using as_dict
+    # another alternate to using as_dict
     # @property
     # def serialize(self):
     #     return {
     #         'title': self.title,
     #         'description': self.description,
-    #         'created_date': self.reated_date,
+    #         'created_date': self.created_date,
     #         'id': self.id,
     #     }
-
