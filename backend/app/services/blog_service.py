@@ -5,8 +5,11 @@ from flask import jsonify
 
 
 class BlogService(SQLAlchemyService):
-    __model__ = Blog
-    __db__ = db
+    model = Blog
+    db = db
+
+    def __init__(self):
+        SQLAlchemyService.__init__(self, self.db, self.model)
 
     def update(self, id, title, desc):
         to_update = self.__model__.query.get(id)

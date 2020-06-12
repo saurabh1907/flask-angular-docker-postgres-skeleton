@@ -5,14 +5,14 @@ from flask_cors import CORS
 
 
 @celery.task()
-def add_dummy_blogs(count, duration):
+def add_dummy_blogs(count):
     for i in range(0, count):
         blog_service.save(Blog("A blog from Celery", "A content from Celery"))
     return "Task Complete"
 
+
 app = create_app(env='celery')
 CORS(app, origins='*')
-# app.app_context().push()
 
 
 # Run Using

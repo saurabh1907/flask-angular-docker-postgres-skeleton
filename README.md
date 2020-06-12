@@ -6,7 +6,7 @@ It includes but is not limited to the following -
 * Complete PostgreSQL database support with sample db, model and dummy data examples included in the project.
 * Reverse proxy using nginx.
 * RedisQueue with Celery for asynchronous process 
-
+* There are two branches: master and frontend_backend_db_docker. Use the latter for a simpler skeleton code.
 <p>All components created from Docker images that expand on the respective official images from Docker Hub. Docker-compose file binds them together </p>
 
 ## Working
@@ -17,10 +17,9 @@ Prerequisites [here](https://github.com/angular/angular-cli#prerequisites).
 
 ## How to run
 - Clone this repository
-There are two branches- master and frontend_backend_db_docker. use -> git checkout branch_name
 - Then navigate to project_dir and execute following commands:
   - `docker-compose build`
-  - `docker-compose up`
+  - `docker-compose up` Note: use `npm install` in frontend directory for the first time
   - _OR_ just run one command: `docker-compose -f docker-compose.yml up --build`
  
 - Open Browser and type following URL:
@@ -44,6 +43,7 @@ There are two branches- master and frontend_backend_db_docker. use -> git checko
 -   The project structure supports multiple environments defined in setting.py
 -   Edit environment variables in .env and .env_docker
 -   ENV variables are loaded through setting.py
+-   (Angular) This is a development setup; For Prod use nginx server to host the contents of dist folder (`ng build --prod`)
 -   Some helpful commands are provided in Makefile
      - Eg. make backend-access
 - docker-compose-local.yml has just postgresql and redis
